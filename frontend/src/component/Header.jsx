@@ -2,9 +2,12 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useNavigate } from "react-router-dom"
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  
+  const navigate = useNavigate()
 
   return (
     <motion.header
@@ -35,6 +38,7 @@ const Header = () => {
             className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-2 rounded-full font-medium shadow-lg hover:shadow-xl transition-shadow"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => navigate("/login")}  // navigate to login on click
           >
             Sign Up Free
           </motion.button>
