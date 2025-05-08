@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
+import { useNavigate } from "react-router-dom"
 
 const steps = [
   {
@@ -35,6 +36,8 @@ const HowItWorks = () => {
     triggerOnce: true,
     threshold: 0.1,
   })
+  
+  const navigate = useNavigate()
 
   return (
     <section id="how-it-works" className="py-20 px-6 md:px-12 bg-gray-50">
@@ -104,6 +107,7 @@ const HowItWorks = () => {
             className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-3 rounded-full font-medium shadow-lg text-lg"
             whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(236, 72, 153, 0.4)" }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => navigate("/login")}  // navigate to login on click
           >
             Try It Now - It's Free!
           </motion.button>

@@ -1,11 +1,14 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useNavigate } from "react-router-dom"
 
 const CTA = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const navigate = useNavigate()
 
   return (
     <section className="py-20 px-6 md:px-12 bg-gradient-to-r from-pink-500 to-purple-600 text-white">
@@ -51,6 +54,7 @@ const CTA = () => {
               className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-3 rounded-r-md font-medium"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => navigate("/login")}  // navigate to login on click
             >
               Get Started
             </motion.button>
