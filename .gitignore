@@ -1,0 +1,35 @@
+# Top-level ignores
+node_modules/
+.DS_Store
+.env
+.env.local
+
+# Ignore log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore output directories
+dist/
+build/
+
+# OS and IDE files
+.vscode/
+*.swp
+*.swo
+*.bak
+Thumbs.db
+
+# Ignore frontend-specific
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.vite/
+
+/frontend/.env
+/frontend/.env.local
+
+# Ignore backend-specific
+/otp-backend/node_modules/
+/otp-backend/.env
+/otp-backend/.env.local
