@@ -4,6 +4,8 @@ import { useState, useEffect } from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Landing from "./pages/Landing"
 import Login from "./pages/Login"
+import Signup from "./pages/Signup"
+import Contact from "./pages/Contact"
 import Preloader from "./component/Preloader"
 
 export default function App() {
@@ -24,6 +26,8 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </Router>
       )}

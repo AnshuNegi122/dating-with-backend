@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { useNavigate } from "react-router-dom"
+import AnimatedBackground from "./AnimatedBackground"
 
 const steps = [
   {
@@ -36,11 +37,16 @@ const HowItWorks = () => {
     triggerOnce: true,
     threshold: 0.1,
   })
-  
+
   const navigate = useNavigate()
 
   return (
     <section id="how-it-works" className="py-20 px-6 md:px-12 bg-gray-50">
+      {/* Animated Background */}
+      <div className="relative inset-0 z-0">
+        <AnimatedBackground />
+        <div className="relative inset-0 bg-white/80"></div>
+      </div>
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="text-center mb-16"
