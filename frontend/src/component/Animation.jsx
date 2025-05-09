@@ -37,7 +37,7 @@ const AnimatedTestimonials = () => {
       {testimonials.map((t, index) => (
         <div
           key={index}
-          className="testimonial bg-white/10 backdrop-blur-sm p-4 rounded-lg"
+          className="testimonial bg-black/15 backdrop-blur-sm p-4 rounded-lg"
           style={{
             display: index === currentIndex ? 'block' : 'none',
             opacity: isVisible ? 1 : 0,

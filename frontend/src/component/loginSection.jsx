@@ -95,7 +95,7 @@ const LoginScreen = () => {
     <div className="min-h-screen flex items-center justify-center p-6 text-gray-800">
       <div className="w-full max-w-6xl flex flex-col md:flex-row rounded-2xl shadow-elegant overflow-hidden">
         {/* Left Side */}
-        <div className="bg-pink-700 w-full md:w-5/12 bg-gradient-to-br from-brand-800 to-brand-950 p-8 md:p-12 flex flex-col justify-between text-white">
+        <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white w-full md:w-5/12  p-8 md:p-12 flex flex-col justify-between">
           <div>
             <div className="flex items-center mb-8">
               <svg className="w-8 h-8 text-brand-300" viewBox="0 0 24 24" fill="currentColor">
@@ -188,7 +188,7 @@ const LoginScreen = () => {
             {/* OTP Action Button */}
             <button
               onClick={otpSent ? handleVerifyOTP : handleGenerateOTP}
-              className={`mt-4 shine flex items-center justify-center gap-3 py-3 px-4 rounded-lg border border-gray-200 shadow-button mb-4 hover:bg-gray-50 transition-all bg-pink-700 w-full bg-gradient-to-br from-brand-800 to-brand-950 ${
+              className={`mt-4 shine flex items-center justify-center gap-3 py-3 px-4 rounded-lg border border-gray-200 shadow-button mb-4 hover:bg-gray-50 transition-all bg-pink-700 w-full bg-gradient-to-r from-pink-400 to-purple-500 text-white ${
                 isLoading ? "opacity-60 cursor-not-allowed" : ""
               }`}
               disabled={isLoading}
