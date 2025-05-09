@@ -1,7 +1,7 @@
-"use client"
-
 import { useState, useRef, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import Animation from "./Animation"
+import { motion } from 'framer-motion'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("")
@@ -9,6 +9,7 @@ const LoginScreen = () => {
   const [otpSent, setOtpSent] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [resendCooldown, setResendCooldown] = useState(0)
+  const navigate = useNavigate()
 
   const otpRefs = useRef([])
 
@@ -93,9 +94,11 @@ const LoginScreen = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 text-gray-800">
-      <div className="w-full max-w-6xl flex flex-col md:flex-row rounded-2xl shadow-elegant overflow-hidden">
+      <motion.div className="w-full max-w-6xl flex flex-col md:flex-row rounded-2xl shadow-elegant overflow-hidden" initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}>
         {/* Left Side */}
-        <div className="bg-pink-700 w-full md:w-5/12 bg-gradient-to-br from-brand-800 to-brand-950 p-8 md:p-12 flex flex-col justify-between text-white">
+        <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white w-full md:w-5/12  p-8 md:p-12 flex flex-col justify-between">
           <div>
             <div className="flex items-center mb-8">
               <svg className="w-8 h-8 text-brand-300" viewBox="0 0 24 24" fill="currentColor">
@@ -128,10 +131,10 @@ const LoginScreen = () => {
             <p className="text-gray-600 mb-8">Sign in to continue your journey to love</p>
 
             {/* Email Field */}
-            <label htmlFor="email" className="block text-gray-700 text-md font-display font-medium mb-2">
-              Your Email
+            <label htmlFor="email" className="block text-gray-700 text-md font-medium mb-2">
+              Email address
             </label>
-            <div className="relative mb-6">
+            <div className="relative">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                 <svg className="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 20 16">
                   <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
@@ -139,9 +142,11 @@ const LoginScreen = () => {
                 </svg>
               </div>
               <input
-                type="email"
                 id="email"
-                className="bg-white w-full ps-10 py-3 px-4 rounded-lg border border-gray-200 shadow-button mb-4 hover:bg-gray-50 outline-none"
+                name="email"
+                type="email"
+                autoComplete="email"
+                className="bg-white w-full ps-10 py-3 px-4 rounded-lg border border-gray-200 shadow-button hover:bg-gray-50 outline-none"
                 placeholder="example@mail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -174,9 +179,8 @@ const LoginScreen = () => {
                     <button
                       disabled={resendCooldown > 0}
                       onClick={handleGenerateOTP}
-                      className={`font-medium ${
-                        resendCooldown > 0 ? "text-gray-400" : "text-indigo-500 hover:text-indigo-600"
-                      }`}
+                      className={`font-medium ${resendCooldown > 0 ? "text-gray-400" : "text-indigo-500 hover:text-indigo-600"
+                        }`}
                     >
                       Resend {resendCooldown > 0 && `(${resendCooldown}s)`}
                     </button>
@@ -188,9 +192,8 @@ const LoginScreen = () => {
             {/* OTP Action Button */}
             <button
               onClick={otpSent ? handleVerifyOTP : handleGenerateOTP}
-              className={`mt-4 shine flex items-center justify-center gap-3 py-3 px-4 rounded-lg border border-gray-200 shadow-button mb-4 hover:bg-gray-50 transition-all bg-pink-700 w-full bg-gradient-to-br from-brand-800 to-brand-950 ${
-                isLoading ? "opacity-60 cursor-not-allowed" : ""
-              }`}
+              className={`mt-4 shine flex items-center justify-center gap-3 py-3 px-4 rounded-lg border border-gray-200 shadow-button mb-4 hover:bg-gray-50 transition-all bg-pink-700 w-full bg-gradient-to-r from-pink-400 to-purple-500 text-white hover:opacity-90 ${isLoading ? "opacity-60 cursor-not-allowed" : ""
+                }`}
               disabled={isLoading}
             >
               <span className="font-medium text-white">
@@ -201,12 +204,13 @@ const LoginScreen = () => {
             {/* OR Divider */}
             <div className="relative flex items-center my-6">
               <div className="flex-grow border-t border-gray-300"></div>
-              <span className="flex-shrink mx-4 text-gray-600 text-sm">or continue with</span>
+              {/* <span className="flex-shrink mx-4 text-gray-600 text-sm">or continue with</span> */}
+              <span className="flex-shrink mx-4 text-gray-600 text-sm"></span>
               <div className="flex-grow border-t border-gray-300"></div>
             </div>
 
             {/* Google Button */}
-            <button className="shine w-full bg-white flex items-center justify-center gap-3 py-3 px-4 rounded-lg border border-gray-200 shadow-button mb-4 hover:bg-gray-50 transition-all">
+            {/* <button className="shine w-full bg-white flex items-center justify-center gap-3 py-3 px-4 rounded-lg border border-gray-200 shadow-button mb-4 hover:bg-gray-50 transition-all">
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 
@@ -234,24 +238,37 @@ const LoginScreen = () => {
                 />
               </svg>
               <span className="font-medium">Continue with Google</span>
-            </button>
+            </button> */}
+
+            {/* Don't have an account */}
+            <div className="text-center mb-4">
+              <p className="text-sm text-gray-600">
+                Don't have an account?{" "}
+                <button className="font-medium text-pink-600 hover:text-pink-500"
+                  onClick={() => navigate("/signup")}>
+                  Sign Up
+                </button>
+              </p>
+            </div>
 
             {/* Terms */}
             <div className="text-center text-sm text-gray-600 mb-6">
               By continuing, you agree to our
-              <a href="#" className="text-brand-700 hover:text-brand-800 font-medium">
+              <a href="#" className="text-pink-600 hover:text-pink-500 font-medium">
                 {" "}
                 Terms of Service{" "}
               </a>{" "}
               and
-              <a href="#" className="text-brand-700 hover:text-brand-800 font-medium">
+              <a href="#" className="text-pink-600 hover:text-pink-500 font-medium">
                 {" "}
                 Privacy Policy
               </a>
             </div>
 
+
+
             {/* Footer */}
-            <div className="flex items-center justify-center gap-4 mt-8">
+            <div className="flex items-center justify-center gap-4 mt-5">
               {["Secure Login", "Privacy Protected", "24/7 Support"].map((label, index) => (
                 <div key={index} className="flex items-center">
                   <svg className="w-4 h-4 text-green-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -270,7 +287,7 @@ const LoginScreen = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

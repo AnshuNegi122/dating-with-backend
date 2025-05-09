@@ -1,5 +1,3 @@
-"use client"
-
 import LoginScreen from "../component/loginSection"
 
 function Login() {
