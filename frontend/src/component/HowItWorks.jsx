@@ -1,5 +1,3 @@
-"use client"
-
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { useNavigate } from "react-router-dom"
@@ -113,7 +111,7 @@ const HowItWorks = () => {
             className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-3 rounded-full font-medium shadow-lg text-lg"
             whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(236, 72, 153, 0.4)" }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => navigate("/login")}  // navigate to login on click
+            onClick={() => navigate("/signup")}  // navigate to login on click
           >
             Try It Now - It's Free!
           </motion.button>

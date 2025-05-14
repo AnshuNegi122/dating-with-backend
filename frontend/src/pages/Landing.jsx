@@ -7,6 +7,7 @@ import Hero from "../component/Hero"
 import Features from "../component/Features"
 import HowItWorks from "../component/HowItWorks"
 import Testimonials from "../component/Testimonials"
+import LoveCalculator from "../component/LoveCalculator"
 import CTA from "../component/CTA"
 import Footer from "../component/Footer"
 
@@ -23,13 +24,14 @@ function Landing() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-rose-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-rose-50 to-white overflow-x-hidden">
       <Header />
       <main>
         <Hero />
         <Features />
         <HowItWorks />
-        <Testimonials />
+        {/* <Testimonials /> */}
+        <LoveCalculator />
         <CTA />
       </main>
       <Footer />

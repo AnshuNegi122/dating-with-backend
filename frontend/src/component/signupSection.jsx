@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import Animation from "../component/Animation"
+import AnimatedBackground from "../component/AnimatedBackground"
 
 const Signup = ({ onLogin }) => {
   const navigate = useNavigate()
@@ -59,7 +60,12 @@ const Signup = ({ onLogin }) => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 text-gray-800">
+    <div className="min-h-screen flex items-center justify-center p-6 text-gray-800 bg-purple-100">
+      {/* Animated Background */}
+      <div className="relative inset-0 z-0">
+        <AnimatedBackground />
+        <div className="relative inset-0 bg-white/80"></div>
+      </div>
       <motion.div
         className="w-full max-w-6xl flex flex-col md:flex-row rounded-2xl shadow-lg overflow-hidden"
         initial={{ opacity: 0, y: 20 }}

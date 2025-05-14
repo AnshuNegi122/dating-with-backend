@@ -6,6 +6,7 @@ import Landing from "./pages/Landing"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import Contact from "./pages/Contact"
+import Quiz from "./pages/Quiz"
 import Preloader from "./component/Preloader"
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/quiz" element={<Quiz />} />
           </Routes>
         </Router>
       )}
