@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import AnimatedBackground from "./AnimatedBackground"
+import AnimatedBackground1 from "./AnimatedBackground1"
 
 const features = [
   {
@@ -92,7 +92,7 @@ const Features = () => {
     <section id="features" className="py-20 px-6 md:px-12 relative overflow-hidden">
       {/* Animated Background */}
       <div className="relative inset-0 z-0">
-        <AnimatedBackground />
+        <AnimatedBackground1 />
         <div className="relative inset-0 bg-white/80"></div>
       </div>
 

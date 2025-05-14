@@ -1,9 +1,8 @@
-"use client"
-
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import Animation from "../component/Animation"
+import AnimatedBackground from "../component/AnimatedBackground"
 
 const Signup = ({ onLogin }) => {
   const navigate = useNavigate()
@@ -59,7 +58,12 @@ const Signup = ({ onLogin }) => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 text-gray-800">
+    <div className="min-h-screen flex items-center justify-center p-6 text-gray-800 bg-purple-100">
+      {/* Animated Background */}
+      <div className="relative inset-0 z-0">
+        <AnimatedBackground />
+        <div className="relative inset-0 bg-white/80"></div>
+      </div>
       <motion.div
         className="w-full max-w-6xl flex flex-col md:flex-row rounded-2xl shadow-lg overflow-hidden"
         initial={{ opacity: 0, y: 20 }}
@@ -69,27 +73,28 @@ const Signup = ({ onLogin }) => {
         {/* Left Side */}
         <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white w-full md:w-5/12 p-8 md:p-12 flex flex-col justify-between">
           <div>
-            <div className="flex items-center mb-8">
+            <div className="flex items-center mb-8 cursor-pointer" 
+                  onClick={() => navigate("/")} >
               <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
               </svg>
-              <h1 className="text-2xl font-bold ml-2 tracking-wide">Amour</h1>
+              <h1 className="text-2xl font-display font-semibold ml-2 tracking-wide">Amour</h1>
             </div>
-            <h2 className="text-3xl md:text-4xl font-medium leading-tight mb-4">
+            <h2 className="text-3xl md:text-4xl font-display font-medium leading-tight mb-4">
               Find your perfect match with our premium dating experience
             </h2>
-            <p className="text-white/80 mb-8 text-sm md:text-base">
+            <p className="text-brand-100/60 mb-8 text-xs md:text-base">
               Join thousands of singles who have found meaningful connections through our curated matching system.
             </p>
           </div>
-          <Animation />
+          {/* <Animation /> */}
           <p className="text-xs text-white/60 mt-8">© 2023 Amour. All rights reserved.</p>
         </div>
 
         {/* Right Side */}
         <div className="w-full md:w-7/12 bg-white p-8 md:p-12 flex flex-col justify-center">
           <div className="max-w-md mx-auto w-full">
-            <h3 className="text-2xl md:text-3xl font-medium mb-2">Create your account</h3>
+            <h3 className="text-2xl md:text-3xl font-display font-medium mb-2">Create your account</h3>
             <p className="text-gray-600 mb-8">Sign up to start your journey to love</p>
 
             <form className="space-y-6" onSubmit={handleSubmit}>
