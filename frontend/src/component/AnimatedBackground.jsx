@@ -24,11 +24,11 @@ const AnimatedBackground = () => {
           transition={{
             duration: 8 + Math.random() * 5,
             repeat: Number.POSITIVE_INFINITY,
-            delay: i * 0.7,
+            delay: i * 0.2,
           }}
         >
           <svg
-            className="w-6 h-6 text-pink-400"
+            className="w-16 h-16 text-pink-400"
             viewBox="0 0 24 24"
             fill="currentColor"
             style={{ transform: `rotate(${Math.random() * 30 - 15}deg)` }}
@@ -64,7 +64,7 @@ const AnimatedBackground = () => {
             transition={{
               duration: 10 + Math.random() * 5,
               repeat: Number.POSITIVE_INFINITY,
-              delay: i * 0.5,
+              delay: i * 0.2,
             }}
           />
         )

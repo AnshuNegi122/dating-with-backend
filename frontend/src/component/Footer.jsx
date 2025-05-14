@@ -1,8 +1,10 @@
-"use client"
-
 import { motion } from "framer-motion"
+import { useNavigate } from "react-router-dom"
 
 const Footer = () => {
+  
+  const navigate = useNavigate()
+
   return (
     <footer className="bg-gray-900 text-white py-12 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
@@ -47,14 +49,16 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Company</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-400 hover:text-pink-400 transition-colors">
+                <button className="text-gray-400 hover:text-pink-400 transition-colors"
+                 onClick={() => navigate("/about")}>
                 About Us
-                </a>
+                </button>
               </li>
               <li>
-                <a href="/contact" className="text-gray-400 hover:text-pink-400 transition-colors">
+                <button className="text-gray-400 hover:text-pink-400 transition-colors"
+                  onClick={() => navigate("/contact")}>
                 Contact
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -62,15 +66,36 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Support</h3>
             <ul className="space-y-2">
-              {["Help Center", "Safety Center", "Community Guidelines", "Terms of Service", "Privacy Policy"].map(
-                (item) => (
-                  <li key={item}>
-                    <a href="#" className="text-gray-400 hover:text-pink-400 transition-colors">
-                      {item}
-                    </a>
-                  </li>
-                ),
-              )}
+              <li>
+                <button className="text-gray-400 hover:text-pink-400 transition-colors"
+                  onClick={() => navigate("")}>
+                Help Center
+                </button>
+              </li>
+              <li>
+                <button className="text-gray-400 hover:text-pink-400 transition-colors"
+                    onClick={() => navigate("")}>
+                Safety Center
+                </button>
+              </li>
+              <li>
+                <button className="text-gray-400 hover:text-pink-400 transition-colors"
+                    onClick={() => navigate("")}>
+                Community Guidelines
+                </button>
+              </li>
+              <li>
+                <button className="text-gray-400 hover:text-pink-400 transition-colors"
+                    onClick={() => navigate("/terms")}>
+                Terms of Service
+                </button>
+              </li>
+              <li>
+                <button className="text-gray-400 hover:text-pink-400 transition-colors"
+                    onClick={() => navigate("/privacy")}>
+                Privacy Policy
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -93,9 +118,10 @@ const Footer = () => {
             <ul className="flex space-x-6">
               {["Terms", "Privacy", "Cookies"].map((item) => (
                 <li key={item}>
-                  <a href="#" className="text-gray-500 hover:text-pink-400 text-sm transition-colors">
+                  <button className="text-gray-500 hover:text-pink-400 text-sm transition-colors"
+                    onClick={() => navigate(`${item.toLocaleLowerCase()}`)}>
                     {item}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>

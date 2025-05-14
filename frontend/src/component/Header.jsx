@@ -40,7 +40,7 @@ const Header = () => {
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/login")}  // navigate to login on click
           >
-            Sign Up Free
+            Login
           </motion.button>
         </nav>
 

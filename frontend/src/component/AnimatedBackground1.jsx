@@ -25,7 +25,7 @@ const AnimatedBackground1 = () => {
       constructor() {
         this.x = Math.random() * canvas.width
         this.y = Math.random() * canvas.height
-        this.size = Math.random() * 5 + 1
+        this.size = Math.random() * 25 + 1
         this.speedX = Math.random() * 3 - 1.5
         this.speedY = Math.random() * 3 - 1.5
         this.color = colors[Math.floor(Math.random() * colors.length)]
@@ -51,7 +51,7 @@ const AnimatedBackground1 = () => {
         ctx.beginPath()
 
         // Draw heart shape
-        const topCurveHeight = this.size * 0.3
+        const topCurveHeight = this.size * 0.6
         ctx.moveTo(this.x, this.y + topCurveHeight)
         // Left curve
         ctx.bezierCurveTo(this.x, this.y, this.x - this.size, this.y, this.x - this.size, this.y + topCurveHeight)

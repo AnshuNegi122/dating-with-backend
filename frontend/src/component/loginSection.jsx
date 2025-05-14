@@ -107,7 +107,8 @@ const LoginScreen = () => {
         {/* Left Side */}
         <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white w-full md:w-5/12  p-8 md:p-12 flex flex-col justify-between">
           <div>
-            <div className="flex items-center mb-8">
+            <div className="flex items-center mb-8 cursor-pointer" 
+                  onClick={() => navigate("/")} >
               <svg className="w-8 h-8 text-brand-300" viewBox="0 0 24 24" fill="currentColor">
                 <path
                   d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 

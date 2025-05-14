@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import { useNavigate } from "react-router-dom"
 
 const LoveCalculator = () => {
   const [name1, setName1] = useState("")
   const [name2, setName2] = useState("")
   const [result, setResult] = useState(null)
   const [isCalculating, setIsCalculating] = useState(false)
+  const navigate = useNavigate()
 
   // For animating the percentage number
   const [displayPercentage, setDisplayPercentage] = useState(0)
@@ -275,7 +277,7 @@ const LoveCalculator = () => {
                   className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-3 rounded-full font-medium shadow-lg text-lg"
                   whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(236, 72, 153, 0.4)" }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => (window.location.href = "/love-quiz")}
+                  onClick={() => navigate("/quiz")}
                 >
                   Take Love Quiz
                 </motion.button>

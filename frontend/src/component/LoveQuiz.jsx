@@ -3,7 +3,379 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import AnimatedBackground from "./AnimatedBackground"
-import { Share2, Copy, Check, ChevronRight } from "lucide-react"
+import { Share2, Copy, Check, ChevronRight, Shuffle } from 'lucide-react'
+
+// All possible quiz questions from the provided list
+const allQuizQuestions = [
+  {
+    question: "What's your idea of a romantic evening?",
+    options: [
+      "Dinner under the stars",
+      "Netflix and cuddles",
+      "Dancing in the living room",
+      "Writing love letters"
+    ]
+  },
+  {
+    question: "How do you show love the most?",
+    options: [
+      "Giving gifts",
+      "Spending time together",
+      "Complimenting them",
+      "Doing small things for them"
+    ]
+  },
+  {
+    question: "What type of couple do you see yourself as?",
+    options: [
+      "Adventure seekers",
+      "Chill and cozy",
+      "Power couple",
+      "Creative and quirky"
+    ]
+  },
+  {
+    question: "What's your favorite way to say \"I love you\"?",
+    options: [
+      "Saying it daily",
+      "Through actions",
+      "By surprise notes",
+      "With hugs and kisses"
+    ]
+  },
+  {
+    question: "Where would you love to go on a honeymoon?",
+    options: [
+      "Maldives",
+      "Paris",
+      "Iceland",
+      "Bali"
+    ]
+  },
+  {
+    question: "Which song best describes your romantic side?",
+    options: [
+      "\"Perfect\" by Ed Sheeran",
+      "\"All of Me\" by John Legend",
+      "\"Love Story\" by Taylor Swift",
+      "\"Just the Way You Are\" by Bruno Mars"
+    ]
+  },
+  {
+    question: "Do you believe in love at first sight?",
+    options: [
+      "Yes, absolutely",
+      "Kind of",
+      "Not really",
+      "Only in movies"
+    ]
+  },
+  {
+    question: "What's the cutest couple activity?",
+    options: [
+      "Cooking together",
+      "Traveling",
+      "Matching outfits",
+      "Watching movies"
+    ]
+  },
+  {
+    question: "What makes you feel most loved?",
+    options: [
+      "Surprises",
+      "Being listened to",
+      "Thoughtful gestures",
+      "Long conversations"
+    ]
+  },
+  {
+    question: "Which type of love story would yours be?",
+    options: [
+      "Friends to lovers",
+      "Soulmates who met by chance",
+      "Long-distance love",
+      "Opposites attract"
+    ]
+  },
+  {
+    question: "What's your favorite type of dessert?",
+    options: [
+      "Chocolate cake",
+      "Ice cream",
+      "Donuts",
+      "Fruit tart"
+    ]
+  },
+  {
+    question: "Which season do you love the most?",
+    options: [
+      "Winter",
+      "Summer",
+      "Spring",
+      "Autumn"
+    ]
+  },
+  {
+    question: "Which movie genre do you enjoy most?",
+    options: [
+      "Romance",
+      "Action",
+      "Comedy",
+      "Horror"
+    ]
+  },
+  {
+    question: "What's your favorite way to relax?",
+    options: [
+      "Listening to music",
+      "Reading",
+      "Watching movies",
+      "Taking a walk"
+    ]
+  },
+  {
+    question: "What's your dream vacation type?",
+    options: [
+      "Beach retreat",
+      "Mountain escape",
+      "City exploration",
+      "Desert adventure"
+    ]
+  },
+  {
+    question: "What kind of music do you vibe with?",
+    options: [
+      "Pop",
+      "Rock",
+      "Jazz",
+      "Chill/Lo-fi"
+    ]
+  },
+  {
+    question: "Which pet would you love to have?",
+    options: [
+      "Dog",
+      "Cat",
+      "Bunny",
+      "Bird"
+    ]
+  },
+  {
+    question: "What's your comfort food?",
+    options: [
+      "Pizza",
+      "Noodles",
+      "Fries",
+      "Ice cream"
+    ]
+  },
+  {
+    question: "What's your favorite time of day?",
+    options: [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ]
+  },
+  {
+    question: "What color best represents your personality?",
+    options: [
+      "Red – Bold and passionate",
+      "Blue – Calm and thoughtful",
+      "Yellow – Cheerful and sunny",
+      "Purple – Mysterious and creative"
+    ]
+  },
+  {
+    question: "Would you rather get flowers or a handwritten note?",
+    options: [
+      "Flowers",
+      "Handwritten note",
+      "Both",
+      "Neither"
+    ]
+  },
+  {
+    question: "Which is more romantic?",
+    options: [
+      "Surprise date",
+      "Late-night phone calls",
+      "Thoughtful gifts",
+      "Slow dancing at home"
+    ]
+  },
+  {
+    question: "Which would you choose for a date?",
+    options: [
+      "Amusement park",
+      "Rooftop dinner",
+      "Art museum",
+      "Road trip"
+    ]
+  },
+  {
+    question: "Pick your favorite activity for a lazy day:",
+    options: [
+      "Binge-watching shows",
+      "Playing games",
+      "Talking all day",
+      "Napping together"
+    ]
+  },
+  {
+    question: "What's your texting style in a relationship?",
+    options: [
+      "Always texting",
+      "Replies in bursts",
+      "Short and sweet",
+      "Voice notes all the way"
+    ]
+  },
+  {
+    question: "What do you value most in a partner?",
+    options: [
+      "Loyalty",
+      "Humor",
+      "Ambition",
+      "Kindness"
+    ]
+  },
+  {
+    question: "Which quality is a must-have in a relationship?",
+    options: [
+      "Trust",
+      "Communication",
+      "Physical connection",
+      "Shared goals"
+    ]
+  },
+  {
+    question: "Which kind of compliment do you like best?",
+    options: [
+      "About your looks",
+      "About your mind",
+      "About your energy",
+      "About your talent"
+    ]
+  },
+  {
+    question: "How often do you like to talk with your partner?",
+    options: [
+      "All day, every day",
+      "A few check-ins",
+      "Once a day is enough",
+      "Only when needed"
+    ]
+  },
+  {
+    question: "Which emotion do you lead with in love?",
+    options: [
+      "Passion",
+      "Joy",
+      "Calmness",
+      "Excitement"
+    ]
+  },
+  {
+    question: "Who's more likely to steal the blanket?",
+    options: [
+      "Me",
+      "My partner",
+      "Both",
+      "We share nicely"
+    ]
+  },
+  {
+    question: "What's your favorite couple nickname?",
+    options: [
+      "Babe",
+      "Honey",
+      "Love",
+      "Boo"
+    ]
+  },
+  {
+    question: "Would you rather receive:",
+    options: [
+      "A playlist",
+      "A handmade gift",
+      "A surprise visit",
+      "A photo scrapbook"
+    ]
+  },
+  {
+    question: "Favorite couple's game to play?",
+    options: [
+      "Would You Rather",
+      "Truth or Dare",
+      "Card games",
+      "Online co-op games"
+    ]
+  },
+  {
+    question: "Which couple celeb do you relate to most?",
+    options: [
+      "Blake Lively & Ryan Reynolds",
+      "Virat Kohli & Anushka Sharma",
+      "Tom Holland & Zendaya",
+      "Vicky Kaushal & Katrina Kaif"
+    ]
+  },
+  {
+    question: "Who plans better dates?",
+    options: [
+      "Me",
+      "My partner",
+      "We take turns",
+      "We just wing it"
+    ]
+  },
+  {
+    question: "What's your go-to relationship emoji?",
+    options: [
+      "❤️",
+      "🥰",
+      "💋",
+      "💑"
+    ]
+  },
+  {
+    question: "What's a romantic gift you'd love?",
+    options: [
+      "Jewelry",
+      "A surprise trip",
+      "A love letter",
+      "A cozy hoodie"
+    ]
+  },
+  {
+    question: "What's your couple's dream goal?",
+    options: [
+      "Travel the world",
+      "Buy a house",
+      "Build a business",
+      "Adopt pets"
+    ]
+  },
+  {
+    question: "Best way to end a date night?",
+    options: [
+      "A kiss",
+      "Deep talk",
+      "Watching stars",
+      "Sharing dessert"
+    ]
+  }
+]
+
+// Function to get random questions
+const getRandomQuestions = (count = 5) => {
+  // Shuffle the array
+  const shuffled = [...allQuizQuestions].sort(() => 0.5 - Math.random())
+  // Get first 'count' elements
+  return shuffled.slice(0, count)
+}
 
 const LoveQuiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0)
@@ -21,6 +393,12 @@ const LoveQuiz = () => {
   const [newOptions, setNewOptions] = useState(["", "", "", "", ""])
   const [shareUrl, setShareUrl] = useState("")
   const [isLoading, setIsLoading] = useState(true)
+  const [randomQuestions, setRandomQuestions] = useState([])
+
+  // Generate random questions on component mount
+  useEffect(() => {
+    setRandomQuestions(getRandomQuestions(5))
+  }, [])
 
   // Simulate loading state
   useEffect(() => {
@@ -43,72 +421,11 @@ const LoveQuiz = () => {
       setTimeout(() => {
         // This would normally come from your database
         if (id === "demo") {
-          setCustomQuestions(questions)
+          setCustomQuestions(getRandomQuestions(5))
         }
       }, 500)
     }
   }, [])
-
-  const questions = [
-    {
-      question: "How did you meet your partner?",
-      options: [
-        "Through friends or family",
-        "Online or dating app",
-        "At work or school",
-        "By chance in a public place",
-        "We've known each other since childhood",
-      ],
-    },
-    {
-      question: "What do you value most in your relationship?",
-      options: ["Trust and honesty", "Communication", "Shared interests", "Physical attraction", "Emotional support"],
-    },
-    {
-      question: "How do you handle disagreements?",
-      options: [
-        "We talk it out calmly",
-        "We might argue but always resolve it",
-        "One of us usually gives in",
-        "We take time apart then discuss",
-        "We rarely disagree",
-      ],
-    },
-    {
-      question: "What's your ideal date night?",
-      options: [
-        "Romantic dinner",
-        "Movie night at home",
-        "Outdoor adventure",
-        "Cultural event (concert, museum)",
-        "Trying something new together",
-      ],
-    },
-    {
-      question: "How do you express love to each other?",
-      options: ["Words of affirmation", "Physical touch", "Acts of service", "Quality time together", "Giving gifts"],
-    },
-    {
-      question: "Where do you see yourselves in 5 years?",
-      options: [
-        "Married/committed with children",
-        "Traveling the world together",
-        "Building careers while supporting each other",
-        "Living together but focusing on individual goals",
-        "Taking it day by day",
-      ],
-    },
-    {
-      question: "What's your biggest challenge as a couple?",
-      options: [
-        "Finding quality time together",
-        "Communication issues",
-        "Different life goals",
-        "Financial disagreements",
-        "Family or friend influences",
-      ],
-    },
-  ]
 
   const resultMessages = [
     {
@@ -145,6 +462,8 @@ const LoveQuiz = () => {
 
   const handleStartQuiz = () => {
     if (name1.trim() && name2.trim()) {
+      // Generate new random questions each time the quiz starts
+      setRandomQuestions(getRandomQuestions(5))
       setShowQuiz(true)
     }
   }
@@ -153,7 +472,7 @@ const LoveQuiz = () => {
     const newAnswers = [...answers, answerIndex]
     setAnswers(newAnswers)
 
-    const activeQuestions = customQuestions.length > 0 ? customQuestions : questions
+    const activeQuestions = customQuestions.length > 0 ? customQuestions : randomQuestions
 
     if (currentQuestion < activeQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1)
@@ -166,7 +485,7 @@ const LoveQuiz = () => {
     // This is a simple algorithm that weights answers differently
     // In a real app, you might have more sophisticated matching logic
     let score = 0
-    const activeQuestions = customQuestions.length > 0 ? customQuestions : questions
+    const activeQuestions = customQuestions.length > 0 ? customQuestions : randomQuestions
     const maxScore = activeQuestions.length * 4 // Maximum possible score
 
     answers.forEach((answer, index) => {
@@ -200,6 +519,8 @@ const LoveQuiz = () => {
     setCustomQuestions([])
     setShowCustomQuizForm(false)
     setShareUrl("")
+    // Generate new random questions
+    setRandomQuestions(getRandomQuestions(5))
   }
 
   const createShareableQuiz = () => {
@@ -242,10 +563,10 @@ const LoveQuiz = () => {
     }
   }
 
-  const activeQuestions = customQuestions.length > 0 ? customQuestions : questions
+  const activeQuestions = customQuestions.length > 0 ? customQuestions : randomQuestions
 
   return (
-    <section className="pt-32 pb-20 px-6 md:px-12 min-h-screen overflow-hidden">
+    <section className="pt-32 pb-20 px-6 md:px-12 overflow-hidden min-h-screen">
       {/* Animated Background */}
       <div className="absolute inset-0 z-0">
         <AnimatedBackground />
@@ -446,7 +767,7 @@ const LoveQuiz = () => {
                             setShowCustomQuizForm(false)
                           }, 1500)
                         } else {
-                          setCustomQuestions(questions) // Use default questions
+                          setCustomQuestions(getRandomQuestions(5)) // Use random questions
                           setShowCustomQuizForm(false)
                         }
                       }}
@@ -456,7 +777,7 @@ const LoveQuiz = () => {
                         ? isCreatingQuiz
                           ? "Generating Link..."
                           : "Done"
-                        : "Use Default Questions"}
+                        : "Use Random Questions"}
                     </button>
                   </div>
                 </div>
@@ -553,7 +874,10 @@ const LoveQuiz = () => {
                   whileTap={{ scale: 0.95 }}
                   onClick={resetQuiz}
                 >
-                  Take Quiz Again
+                  <div className="flex items-center justify-center">
+                    <Shuffle className="w-4 h-4 mr-2" />
+                    Take New Quiz
+                  </div>
                 </motion.button>
 
                 <motion.button
@@ -660,6 +984,8 @@ const LoveQuiz = () => {
             </motion.div>
           )}
         </div>
+
+        
       </div>
     </section>
   )

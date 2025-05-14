@@ -1,16 +1,7 @@
 import { useState, useRef, useEffect } from "react";
-import {
-  User,
-  Bot,
-  ArrowLeft,
-  Clock,
-  MapPin,
-  Phone,
-  Mail,
-  X,
-  MessageSquare,
-  Send,
-} from "lucide-react";
+import { User, Bot, ArrowLeft, Heart, Clock, MapPin, Phone, Mail, X, MessageSquare, Send } from "lucide-react";
+import { Link } from "react-router-dom"
+
 
 // Conversation flow data structure
 const conversationFlows = {
@@ -496,7 +487,7 @@ const ContactPage = () => {
     // Determine chatbot position and size based on screen size
     const chatbotClassNames = isMobile
       ? "fixed inset-0 z-50 flex flex-col bg-white" // Full screen on mobile
-      : "fixed bottom-16 right-4 w-64 sm:w-72 md:w-80 lg:w-96 h-3/5 bg-white rounded-lg shadow-xl flex flex-col overflow-hidden border border-gray-200"; // Much smaller size on desktop
+      : "fixed bottom-16 right-4 w-64 sm:w-72 md:w-80 lg:w-96 h-[70%] bg-white rounded-lg shadow-xl flex flex-col overflow-hidden border border-gray-200"; // Much smaller size on desktop
   
     return (
       <div className={chatbotClassNames}>
@@ -573,18 +564,27 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
-          <div className="flex justify-between items-center">
-            <h1 className="text-xl md:text-3xl font-bold text-gray-900">Company Name</h1>
-            <nav className="flex space-x-4 md:space-x-8">
-              <a href="#" className="text-gray-500 hover:text-gray-900">
-                Home
-              </a>
-            </nav>
+      <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4 md:justify-start md:space-x-10">
+            <div className="flex justify-start lg:w-0 lg:flex-1">
+              <Link to="/" className="flex items-center">
+                <Heart className="h-8 w-8 text-pink-500" />
+                <span className="ml-2 text-xl font-bold text-gray-900">Love Quiz</span>
+              </Link>
+            </div>
+            <div className="flex items-center">
+              <Link
+                to="/"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200"
+              >
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Home
+              </Link>
+            </div>
           </div>
         </div>
-      </header>
+      </div>
 
       {/* Simple Contact Content */}
       <main className="max-w-7xl mx-auto py-8 md:py-16 px-4 sm:px-6 lg:px-8">

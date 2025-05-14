@@ -1,38 +1,28 @@
-"use client"
-
-import { useState, useEffect } from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Landing from "./pages/Landing"
+import Quiz from "./pages/Quiz"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
+import About from "./pages/About"
 import Contact from "./pages/Contact"
-import Quiz from "./pages/Quiz"
-import Preloader from "./component/Preloader"
+import Cookies from "./pages/Cookies"
+import Privacy from "./pages/Privacy"
+import Terms from "./pages/Terms"
 
 export default function App() {
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setLoading(false), 1500) // simulate 1.5s load
-    return () => clearTimeout(timeout)
-  }, [])
-
-
   return (
-    <>
-      {loading ? (
-        <Preloader />
-      ) : (
-        <Router>
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/quiz" element={<Quiz />} />
-          </Routes>
-        </Router>
-      )}
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/quiz" element={<Quiz />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/cookies" element={<Cookies />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+      </Routes>
+    </Router>
   )
 }
