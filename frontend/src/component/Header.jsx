@@ -23,7 +23,7 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          {["Home", "Features", "How It Works", "Testimonials"].map((item) => (
+          {["Home", "Features", "How It Works", "Love Calculator"].map((item) => (
             <motion.a
               key={item}
               href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
@@ -36,11 +36,11 @@ const Header = () => {
           ))}
           <motion.button
             className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-2 rounded-full font-medium shadow-lg hover:shadow-xl transition-shadow"
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(236, 72, 153, 0.4)" }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/login")}  // navigate to login on click
           >
-            Sign Up Free
+            Login
           </motion.button>
         </nav>
 
@@ -76,7 +76,7 @@ const Header = () => {
             transition={{ duration: 0.3 }}
           >
             <div className="flex flex-col space-y-4">
-              {["Home", "Features", "How It Works", "Testimonials"].map((item) => (
+              {["Home", "Features", "How It Works", "Love Calculator"].map((item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}

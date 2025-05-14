@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import Animation from "./Animation"
+import AnimatedBackground from "./AnimatedBackground"
 import { motion } from 'framer-motion'
 
 const LoginScreen = () => {
@@ -93,14 +94,21 @@ const LoginScreen = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 text-gray-800">
+    
+    <div className="min-h-screen flex items-center justify-center p-6 text-gray-800 bg-pink-100">
+      {/* Animated Background */}
+      <div className="relative inset-0 z-0">
+        <AnimatedBackground />
+        <div className="relative inset-0 bg-white/80"></div>
+      </div>  
       <motion.div className="w-full max-w-6xl flex flex-col md:flex-row rounded-2xl shadow-elegant overflow-hidden" initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}>
         {/* Left Side */}
         <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white w-full md:w-5/12  p-8 md:p-12 flex flex-col justify-between">
           <div>
-            <div className="flex items-center mb-8">
+            <div className="flex items-center mb-8 cursor-pointer" 
+                  onClick={() => navigate("/")} >
               <svg className="w-8 h-8 text-brand-300" viewBox="0 0 24 24" fill="currentColor">
                 <path
                   d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 
@@ -125,7 +133,7 @@ const LoginScreen = () => {
         </div>
 
         {/* Right Side */}
-        <div className="w-full md:w-7/12 card-gradient p-8 md:p-12 flex flex-col justify-center">
+        <div className="w-full md:w-7/12 card-gradient bg-white p-8 md:p-12 flex flex-col justify-center">
           <div className="max-w-md mx-auto w-full">
             <h3 className="text-2xl md:text-3xl font-display font-medium mb-2">Welcome Back</h3>
             <p className="text-gray-600 mb-8">Sign in to continue your journey to love</p>
@@ -157,7 +165,7 @@ const LoginScreen = () => {
             {otpSent && (
               <>
                 {/* OTP Inputs */}
-                <label className="block text-gray-700 text-md font-display font-medium mb-2">Enter OTP</label>
+                <label className="block text-gray-700 text-md font-display font-medium mb-2 mt-4">Enter OTP</label>
                 <div className="max-w-md mx-auto text-center rounded-xl">
                   <div className="flex items-center justify-center gap-3">
                     {otp.map((val, i) => (
@@ -196,7 +204,7 @@ const LoginScreen = () => {
                 }`}
               disabled={isLoading}
             >
-              <span className="font-medium text-white">
+              <span className="font-medium text-white outline-none">
                 {isLoading ? "Please wait..." : otpSent ? "Verify OTP" : "Generate OTP"}
               </span>
             </button>
