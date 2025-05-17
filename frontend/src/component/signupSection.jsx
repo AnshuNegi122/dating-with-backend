@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import Animation from "../component/Animation"
 import AnimatedBackground from "../component/AnimatedBackground"
-import { registerUser } from '../api/signup';
+import { registerUser } from '../frontend-integration/api';
 
 const Signup = ({ onLogin }) => {
   const navigate = useNavigate()
