@@ -3,40 +3,58 @@ import { useNavigate } from "react-router-dom"
 import Animation from "./Animation"
 import AnimatedBackground from "./AnimatedBackground"
 import { motion } from 'framer-motion'
+import { loginUser } from "../frontend-integration/api"
 
 const LoginWithPasswordScreen = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [isLoading, setIsLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState({});
 
     const navigate = useNavigate()
 
-    const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    const validateForm = () => {
+        const newErrors = {}
 
-    const handleLogin = async () => {
-        if (!isValidEmail(email) || !password) return alert("Email and password are required")
-        setIsLoading(true)
-        try {
-            const res = await fetch("http://localhost:5000/api/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password }),
-            })
+        if (!email) newErrors.email = "Email is required"
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))newErrors.email = "Email is invalid";
+        
 
-            const result = await res.json()
-            if (res.ok && result.success) {
-                alert("Login successful!")
-                // navigate("/dashboard") or wherever you need to go
-            } else {
-                alert(result.message || "Login failed")
-            }
-        } catch (err) {
-            console.error(err)
-            alert("Server error")
-        } finally {
-            setIsLoading(false)
-        }
+        if (!password) newErrors.password = "Password is required"
+        else if (password.length < 6) newErrors.password = "Password must be at least 6 characters"
+
+        setErrors(newErrors)
+        return Object.keys(newErrors).length === 0
     }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!validateForm()) return;
+        setLoading(true); // start loading
+
+        const user = { email, password };
+
+        try {
+            const result = await loginUser(user); // fix typo here
+            console.log("✅ Registration result:", result);
+            alert("Login Successful")
+
+            setEmail("");
+            setPassword("");
+
+            setErrors({});
+            navigate("/");
+        } catch (err) {
+            setErrors((prev) => ({
+                ...prev,
+                server: err.message || "Registration failed",
+            }));
+            console.error("❌ Error during registration:", err.message);
+        } finally {
+            setLoading(false); // stop loading
+        }
+    };
 
 
     return (
@@ -132,15 +150,18 @@ const LoginWithPasswordScreen = () => {
                             />
                         </div>
 
+                        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                        {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+                        {errors.server && <p className="text-red-500 text-sm mt-4">{errors.server}</p>}
 
 
                         <button
-                            onClick={handleLogin}
-                            className={`mt-4 shine flex items-center justify-center gap-3 py-3 px-4 rounded-lg border border-gray-200 shadow-button mb-4 hover:bg-gray-50 transition-all bg-pink-700 w-full bg-gradient-to-r from-pink-400 to-purple-500 text-white hover:opacity-90 ${isLoading ? "opacity-60 cursor-not-allowed" : ""}`}
-                            disabled={isLoading}
+                            onClick={handleSubmit}
+                            className={`mt-4 shine flex items-center justify-center gap-3 py-3 px-4 rounded-lg border border-gray-200 shadow-button mb-4 hover:bg-gray-50 transition-all bg-pink-700 w-full bg-gradient-to-r from-pink-400 to-purple-500 text-white hover:opacity-90 ${loading ? "opacity-60 cursor-not-allowed" : ""}`}
+                            disabled={loading}
                         >
                             <span className="font-medium text-white outline-none">
-                                {isLoading ? "Logging in..." : "Login"}
+                                {loading ? "Logging in..." : "Login"}
                             </span>
                         </button>
 

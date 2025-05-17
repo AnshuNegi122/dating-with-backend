@@ -9,6 +9,7 @@ import Contact from "./pages/Contact"
 import Cookies from "./pages/Cookies"
 import Privacy from "./pages/Privacy"
 import Terms from "./pages/Terms"
+import VerifyEmail from "./component/VerifyEmail"
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/pass-login" element={<PasswordLogin />} />
         <Route path="/otp-login" element={<OtpLogin />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/cookies" element={<Cookies />} />
