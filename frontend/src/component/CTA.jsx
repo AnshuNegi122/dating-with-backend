@@ -54,7 +54,7 @@ const CTA = () => {
               className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-3 rounded-r-md font-medium"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => navigate("/login")}  // navigate to login on click
+              onClick={() => navigate("/pass-login")}  // navigate to login on click
             >
               Get Started
             </motion.button>
