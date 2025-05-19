@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import Animation from "../component/Animation"
 import AnimatedBackground from "../component/AnimatedBackground"
-import { registerUser } from '../frontend-integration/api';
+import { registerUser } from '../services/api';
 
 const Signup = ({ onLogin }) => {
   const navigate = useNavigate()
@@ -77,6 +77,7 @@ const Signup = ({ onLogin }) => {
       
       if (onLogin) onLogin();
       navigate("/");
+      alert("Mail Sent")
     } catch (err) {
       setErrors(prev => ({ ...prev, server: err.message || "Registration failed" }));
       console.error('❌ Error during registration:', err.message);
