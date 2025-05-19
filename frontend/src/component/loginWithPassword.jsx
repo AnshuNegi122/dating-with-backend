@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import Animation from "./Animation"
 import AnimatedBackground from "./AnimatedBackground"
 import { motion } from 'framer-motion'
-import { loginUser } from "../frontend-integration/api"
+import { loginUser } from "../services/api"
 
 const LoginWithPasswordScreen = () => {
     const [email, setEmail] = useState("")
@@ -19,7 +19,6 @@ const LoginWithPasswordScreen = () => {
         if (!email) newErrors.email = "Email is required"
         else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))newErrors.email = "Email is invalid";
         
-
         if (!password) newErrors.password = "Password is required"
         else if (password.length < 6) newErrors.password = "Password must be at least 6 characters"
 
