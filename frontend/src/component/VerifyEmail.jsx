@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
 const VerifyEmail = () => {
@@ -6,9 +6,13 @@ const VerifyEmail = () => {
   const navigate = useNavigate();
   const [status, setStatus] = useState('verifying');
   const token = searchParams.get('token');
+  const hasRun = useRef(false);
 
   useEffect(() => {
+    if (hasRun.current) return;  // 🛑 Skip if already run
+    hasRun.current = true;
     const verifyEmail = async () => {
+            console.log('running verify email');
       if (!token) {
         setStatus('error');
         return;
