@@ -57,7 +57,7 @@ const VerifyEmail = () => {
             <h2 className="text-2xl font-semibold mb-2">Email Verified!</h2>
             <p className="text-gray-600 mb-6">Your email has been successfully verified. You can now log in to your account.</p>
             <button
-              onClick={() => navigate('/pass-login')}
+              onClick={() => navigate('/login')}
               className="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full font-medium"
             >
               Go to Login

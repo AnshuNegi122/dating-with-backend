@@ -1,9 +1,10 @@
+"use client"
+
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
-import Animation from "../component/Animation"
 import AnimatedBackground from "../component/AnimatedBackground"
-import { registerUser } from '../services/api';
+import { registerUser } from "../services/api"
 
 const Signup = ({ onLogin }) => {
   const navigate = useNavigate()
@@ -16,6 +17,7 @@ const Signup = ({ onLogin }) => {
     gender: "",
   })
   const [errors, setErrors] = useState({})
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -33,12 +35,20 @@ const Signup = ({ onLogin }) => {
     if (!formData.email) newErrors.email = "Email is required"
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Email is invalid"
 
-    if (!formData.password) newErrors.password = "Password is required"
-    else if (formData.password.length < 6) newErrors.password = "Password must be at least 6 characters"
+    if (!formData.password) {
+      newErrors.password = "Password is required"
+    } else if (formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters"
+    } else if (!/(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/.test(formData.password)) {
+      newErrors.password = "Password must include at least one uppercase letter, one number, and one special character"
+    }
 
-    if (!formData.confirmPassword) newErrors.confirmPassword = "Please confirm your password"
-    else if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match"
-
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "Please confirm your password"
+    } else if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match"
+    }
+    
     if (!formData.birthdate) newErrors.birthdate = "Birthdate is required"
 
     if (!formData.gender) newErrors.gender = "Please select your gender"
@@ -48,10 +58,12 @@ const Signup = ({ onLogin }) => {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    if (!validateForm()) return;
-  
+    e.preventDefault()
+
+    if (!validateForm()) return
+
+    setLoading(true)
+
     const user = {
       name: formData.name,
       email: formData.email,
@@ -59,12 +71,12 @@ const Signup = ({ onLogin }) => {
       gender: formData.gender,
       password: formData.password,
       confirmPassword: formData.confirmPassword,
-    };
-  
+    }
+
     try {
-      const result = await registerUser(user);
-      console.log('✅ Registration result:', result);
-  
+      const result = await registerUser(user)
+      console.log("✅ Registration result:", result)
+
       setFormData({
         name: "",
         email: "",
@@ -72,18 +84,19 @@ const Signup = ({ onLogin }) => {
         confirmPassword: "",
         birthdate: "",
         gender: "",
-      });
-      setErrors({});
-      
-      if (onLogin) onLogin();
-      navigate("/");
+      })
+      setErrors({})
+
+      if (onLogin) onLogin()
+      navigate("/")
       alert("Mail Sent")
     } catch (err) {
-      setErrors(prev => ({ ...prev, server: err.message || "Registration failed" }));
-      console.error('❌ Error during registration:', err.message);
+      setErrors((prev) => ({ ...prev, server: err.message || "Registration failed" }))
+      console.error("❌ Error during registration:", err.message)
+    } finally {
+      setLoading(false)
     }
-  };
-  
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 text-gray-800 bg-purple-100">
@@ -101,8 +114,7 @@ const Signup = ({ onLogin }) => {
         {/* Left Side */}
         <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white w-full md:w-5/12 p-8 md:p-12 flex flex-col justify-between">
           <div>
-            <div className="flex items-center mb-8 cursor-pointer"
-              onClick={() => navigate("/")} >
+            <div className="flex items-center mb-8 cursor-pointer" onClick={() => navigate("/")}>
               <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
               </svg>
@@ -125,9 +137,7 @@ const Signup = ({ onLogin }) => {
             <h3 className="text-2xl md:text-3xl font-display font-medium mb-2">Create your account</h3>
             <p className="text-gray-600 mb-8">Sign up to start your journey to love</p>
 
-            {errors.server && (
-              <p className="mt-2 text-sm text-red-600 text-center">{errors.server}</p>
-            )}
+            {errors.server && <p className="mt-2 text-sm text-red-600 text-center">{errors.server}</p>}
 
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
@@ -183,7 +193,6 @@ const Signup = ({ onLogin }) => {
                   </div>
                   {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
                 </div>
-
 
                 <div className="mb-4">
                   <label htmlFor="birthdate" className="block text-gray-700 text-md font-medium mb-2">
@@ -249,9 +258,13 @@ const Signup = ({ onLogin }) => {
                   <div className="relative">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                       <svg className="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M5 8V6a5 5 0 0110 0v2h1a2 2 0 012 2v6a2 
+                        <path
+                          fillRule="evenodd"
+                          d="M5 8V6a5 5 0 0110 0v2h1a2 2 0 012 2v6a2 
                           2 0 01-2 2H4a2 2 0 01-2-2v-6a2 2 0 
-                          012-2h1zm2-2a3 3 0 116 0v2H7V6z" clipRule="evenodd" />
+                          012-2h1zm2-2a3 3 0 116 0v2H7V6z"
+                          clipRule="evenodd"
+                        />
                       </svg>
                     </div>
                     <input
@@ -275,9 +288,13 @@ const Signup = ({ onLogin }) => {
                   <div className="relative">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                       <svg className="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M5 8V6a5 5 0 0110 0v2h1a2 2 0 012 2v6a2 
+                        <path
+                          fillRule="evenodd"
+                          d="M5 8V6a5 5 0 0110 0v2h1a2 2 0 012 2v6a2 
                                      2 0 01-2 2H4a2 2 0 01-2-2v-6a2 2 0 
-                                     012-2h1zm2-2a3 3 0 116 0v2H7V6z" clipRule="evenodd" />
+                                     012-2h1zm2-2a3 3 0 116 0v2H7V6z"
+                          clipRule="evenodd"
+                        />
                       </svg>
                     </div>
                     <input
@@ -318,8 +335,35 @@ const Signup = ({ onLogin }) => {
                 <motion.button
                   type="submit"
                   className="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-pink-400 to-purple-500 shadow-sm hover:opacity-90"
+                  disabled={loading}
                 >
-                  Create Account
+                  {loading ? (
+                    <>
+                      <svg
+                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      <span>Sending Verification...</span>
+                    </>
+                  ) : (
+                    "Create Account"
+                  )}
                 </motion.button>
               </div>
             </form>
@@ -328,7 +372,7 @@ const Signup = ({ onLogin }) => {
             <div className="text-center mt-5">
               <p className="text-sm text-gray-600">
                 Already have an account?{" "}
-                <Link to="/pass-login" className="font-medium text-pink-600 hover:text-pink-500">
+                <Link to="/login" className="font-medium text-pink-600 hover:text-pink-500">
                   Sign in
                 </Link>
               </p>

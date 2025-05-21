@@ -57,4 +57,45 @@ export const sendVerificationEmail = async (email, name, token) => {
   }
 };
 
+// Assuming you have an existing email.js file with sendVerificationEmail function
+// Add this new function for password reset emails
+
+export const sendPasswordResetEmail = async (email, name, resetToken) => {
+  try {
+    // Your email sending logic here
+    // This will depend on your email service (nodemailer, sendgrid, etc.)
+    
+    // Example with nodemailer:
+    const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+    
+    const message = {
+      from: `"Amour Dating App" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: 'Password Reset Request',
+      html: `
+        <h1>Hello ${name},</h1>
+        <p>You requested a password reset. Please click the link below to reset your password:</p>
+        <a href="${resetUrl}" target="_blank">Reset Password</a>
+        <p>This link will expire in 1 hour.</p>
+        <p>If you didn't request this, please ignore this email.</p>
+      `
+    };
+    
+    // Send email using your email service
+    // const info = await transporter.sendMail(message);
+    
+    try {
+      await transporter.sendMail(message);
+      console.log(`Reset Password email sent to ${email}`);
+      return true;
+    } catch (error) {
+      console.error('Error sending reset password email:', error);
+      return false;
+    }
+  } catch (error) {
+    console.error('Send password reset email error:', error);
+    return false;
+  }
+};
+
 export default transporter;
