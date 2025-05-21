@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
+import { User, LayoutDashboard, LogOut } from "lucide-react" // Use Lucide icons
 import { getCurrentUser, isAuthenticated, logoutUser } from "../services/api" // Import the auth functions
 
 const Header = () => {
@@ -10,6 +11,10 @@ const Header = () => {
   const userMenuRef = useRef(null)
 
   const navigate = useNavigate()
+
+  const location = useLocation()
+  const isDashboard = location.pathname.startsWith("/dashboard")
+
 
   // Check if user is authenticated on component mount
   useEffect(() => {
@@ -60,22 +65,26 @@ const Header = () => {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <motion.div className="flex items-center" whileHover={{ scale: 1.05 }}>
-          <div className="text-3xl font-bold text-pink-500">Sparkle</div>
+          <div className="text-3xl font-bold text-pink-500 cursor-pointer"
+            onClick={() => navigate("/")} >Sparkle</div>
         </motion.div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          {["Home", "Features", "How It Works", "Love Calculator"].map((item) => (
-            <motion.a
-              key={item}
-              href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
-              className="text-gray-700 hover:text-pink-500 font-medium transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {item}
-            </motion.a>
-          ))}
+          {!isDashboard &&
+            ["Home", "Features", "How It Works", "Love Calculator"].map((item) => (
+              <motion.a
+                key={item}
+                href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
+                className="text-gray-700 hover:text-pink-500 font-medium transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {item}
+              </motion.a>
+            ))}
+
+
 
           {/* Conditional rendering based on authentication */}
           {!user ? (
@@ -83,7 +92,7 @@ const Header = () => {
               className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-2 rounded-full font-medium shadow-lg hover:shadow-xl transition-shadow"
               whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(236, 72, 153, 0.4)" }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => navigate("/pass-login")}
+              onClick={() => navigate("/login")}
             >
               Login
             </motion.button>
@@ -114,29 +123,53 @@ const Header = () => {
               <AnimatePresence>
                 {isUserMenuOpen && (
                   <motion.div
-                    className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50"
+                    className="absolute right-0 mt-3 w-60 bg-white rounded-2xl shadow-2xl py-2 z-50 border border-pink-100"
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <div className="py-1">
-                      <a href="/profile" className="block px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-500">
+                    <div className="py-1 space-y-1">
+                      {/* Profile */}
+                      <motion.a
+                        href="/profile"
+                        className="group flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-pink-600 transition-all"
+                        whileHover={{ scale: 1.02 }}
+                      >
+                        <User className="w-4 h-4" />
                         Profile
-                      </a>
-                      <a
+                        <span className="ml-auto text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                          Go to profile
+                        </span>
+                      </motion.a>
+
+                      {/* Dashboard */}
+                      <motion.a
                         href="/dashboard"
-                        className="block px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-500"
+                        className="group flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-pink-600 transition-all"
+                        whileHover={{ scale: 1.02 }}
                       >
+                        <LayoutDashboard className="w-4 h-4" />
                         Dashboard
-                      </a>
-                      <div className="border-t border-gray-100 my-1"></div>
-                      <button
+                        <span className="ml-auto text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                          Admin area
+                        </span>
+                      </motion.a>
+
+                      <div className="border-t border-gray-100 my-2" />
+
+                      {/* Logout */}
+                      <motion.button
                         onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-500"
+                        className="group flex items-center gap-2 w-full text-left px-4 py-2 text-red-600 hover:text-red-700 transition-all"
+                        whileHover={{ scale: 1.02 }}
                       >
+                        <LogOut className="w-4 h-4" />
                         Logout
-                      </button>
+                        <span className="ml-auto text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                          Sign out
+                        </span>
+                      </motion.button>
                     </div>
                   </motion.div>
                 )}
@@ -168,63 +201,79 @@ const Header = () => {
 
       {/* Mobile Menu */}
       <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg py-4 px-6"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="flex flex-col space-y-4">
-              {["Home", "Features", "How It Works", "Love Calculator"].map((item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="text-gray-700 hover:text-pink-500 font-medium py-2"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item}
-                </a>
-              ))}
+  {isMenuOpen && (
+    <motion.div
+      className="md:hidden absolute top-full left-0 right-0 bg-white shadow-2xl py-5 px-6 rounded-b-3xl border-t border-pink-100"
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: "auto" }}
+      exit={{ opacity: 0, height: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <div className="flex flex-col space-y-4">
+        {/* Show navigation only if not dashboard */}
+        {!isDashboard &&
+          [
+            { label: "Home", icon: <Home className="w-4 h-4" /> },
+            { label: "Features", icon: <Star className="w-4 h-4" /> },
+            { label: "How It Works", icon: <Heart className="w-4 h-4" /> },
+            { label: "Love Calculator", icon: <Heart className="w-4 h-4" /> },
+          ].map(({ label, icon }) => (
+            <motion.a
+              key={label}
+              href={`#${label.toLowerCase().replace(/\s+/g, "-")}`}
+              className="flex items-center gap-2 text-gray-700 hover:text-pink-600 font-medium"
+              onClick={() => setIsMenuOpen(false)}
+              whileHover={{ scale: 1.03 }}
+            >
+              {icon}
+              {label}
+            </motion.a>
+          ))}
 
-              {/* Mobile login/user section */}
-              {!user ? (
-                <button
-                  className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-2 rounded-full font-medium shadow-lg w-full"
-                  onClick={() => {
-                    setIsMenuOpen(false)
-                    navigate("/pass-login")
-                  }}
-                >
-                  Login
-                </button>
-              ) : (
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2 py-2">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center text-white font-medium text-sm">
-                      {getUserInitials()}
-                    </div>
-                    <span className="text-gray-700 font-medium">{user.name || "User"}</span>
-                  </div>
-                  <a href="/profile" className="block text-gray-700 hover:text-pink-500 font-medium py-2">
-                    Profile
-                  </a>
-                  <a href="/dashboard" className="block text-gray-700 hover:text-pink-500 font-medium py-2">
-                    Dashboard
-                  </a>
-                  <button
-                    onClick={handleLogout}
-                    className="text-left w-full text-gray-700 hover:text-pink-500 font-medium py-2"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
+        {/* Authenticated User Section */}
+        {!user ? (
+          <button
+            className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-2 rounded-full font-medium shadow-lg w-full mt-4"
+            onClick={() => {
+              setIsMenuOpen(false)
+              navigate("/login")
+            }}
+          >
+            Login
+          </button>
+        ) : (
+          <div className="space-y-2 mt-4">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center text-white font-medium text-sm">
+                {getUserInitials()}
+              </div>
+              <span className="text-gray-700 font-medium">{user.name || "User"}</span>
             </div>
-          </motion.div>
+
+            <a href="/profile" className="flex items-center gap-2 text-gray-700 hover:text-pink-600 font-medium">
+              <User className="w-4 h-4" />
+              Profile
+            </a>
+
+            <a href="/dashboard" className="flex items-center gap-2 text-gray-700 hover:text-pink-600 font-medium">
+              <LayoutDashboard className="w-4 h-4" />
+              Dashboard
+            </a>
+
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 text-red-600 hover:text-red-700 font-medium w-full text-left"
+            >
+              <LogOut className="w-4 h-4" />
+              Logout
+            </button>
+          </div>
         )}
-      </AnimatePresence>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
     </motion.header>
   )
 }
