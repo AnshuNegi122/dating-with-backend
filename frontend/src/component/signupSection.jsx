@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import AnimatedBackground from "../component/AnimatedBackground"
 import { registerUser } from "../services/api"
+import { toast } from "react-toastify"
+import ToastContainer from "../component/ToastContainer"
 
 const Signup = ({ onLogin }) => {
   const navigate = useNavigate()
@@ -48,10 +50,15 @@ const Signup = ({ onLogin }) => {
     } else if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match"
     }
-    
+
     if (!formData.birthdate) newErrors.birthdate = "Birthdate is required"
 
     if (!formData.gender) newErrors.gender = "Please select your gender"
+
+    if (!formData.confirmTerms) {
+      newErrors.confirmTerms = "You must agree to the terms and conditions";
+    }
+
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -77,6 +84,16 @@ const Signup = ({ onLogin }) => {
       const result = await registerUser(user)
       console.log("✅ Registration result:", result)
 
+      // Replace alert with toast
+      toast.success("Verification email sent! Please check your inbox.", {
+        icon: "💌",
+        style: {
+          borderRadius: "10px",
+          background: "#fff",
+          color: "#333",
+        },
+      })
+
       setFormData({
         name: "",
         email: "",
@@ -88,10 +105,19 @@ const Signup = ({ onLogin }) => {
       setErrors({})
 
       if (onLogin) onLogin()
-      navigate("/")
-      alert("Mail Sent")
+
+      // Short delay before navigation to allow toast to be seen
+      setTimeout(() => {
+        navigate("/login")
+      }, 2000)
     } catch (err) {
       setErrors((prev) => ({ ...prev, server: err.message || "Registration failed" }))
+
+      // Show error toast
+      toast.error(err.message || "Registration failed", {
+        icon: "💔",
+      })
+
       console.error("❌ Error during registration:", err.message)
     } finally {
       setLoading(false)
@@ -100,6 +126,9 @@ const Signup = ({ onLogin }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 text-gray-800 bg-purple-100">
+      {/* Toast Container */}
+      <ToastContainer />
+
       {/* Animated Background */}
       <div className="relative inset-0 z-0">
         <AnimatedBackground />
@@ -315,10 +344,13 @@ const Signup = ({ onLogin }) => {
               <div className="flex items-center">
                 <input
                   id="terms"
-                  name="terms"
+                  name="confirmTerms"
                   type="checkbox"
                   className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded"
+                  checked={formData.confirmTerms}
+                  onChange={(e) => setFormData({ ...formData, confirmTerms: e.target.checked })}
                 />
+
                 <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
                   I agree to the{" "}
                   <a href="#" className="font-medium text-pink-600 hover:text-pink-500">

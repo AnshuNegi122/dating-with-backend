@@ -1,12 +1,12 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
-import { Home, User, MessageCircle, Users, Video, Bell, Settings, LogOut, Menu, X, Search, Heart } from 'lucide-react'
+import { Home, User, MessageCircle, Users, Video, FileQuestion } from 'lucide-react'
 import Overview from "./dashboard/Overview"
 import Profile from "./dashboard/Profile"
 import Chats from "./dashboard/Chats"
 import GroupChat from "./dashboard/GroupChat"
 import VideoChat from "./dashboard/VideoChat"
 import Header from "./Header"
+import LoveQuiz from "./dashboard/Quiz"
 
 const DashboardSection = () => {
   const [activeTab, setActiveTab] = useState("overview")
@@ -15,6 +15,7 @@ const DashboardSection = () => {
   const tabs = [
     { id: "overview", label: "Overview", icon: <Home className="w-5 h-5" /> },
     { id: "profile", label: "Profile", icon: <User className="w-5 h-5" /> },
+    { id: "quiz", label: "Quiz", icon: <FileQuestion className="w-5 h-5" /> },
     { id: "chats", label: "Chats", icon: <MessageCircle className="w-5 h-5" /> },
     { id: "group-chat", label: "Group Chat", icon: <Users className="w-5 h-5" /> },
     { id: "video-chat", label: "Video Chat", icon: <Video className="w-5 h-5" /> },
@@ -26,6 +27,8 @@ const DashboardSection = () => {
         return <Overview />
       case "profile":
         return <Profile />
+      case "quiz":
+        return <LoveQuiz />
       case "chats":
         return <Chats />
       case "group-chat":

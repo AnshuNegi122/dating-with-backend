@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import AnimatedBackground from "./AnimatedBackground"
 import { forgotPassword } from "../services/api"
+import { toast } from "react-toastify"
+import ToastContainer from "./ToastContainer"
 
 function ForgotPassword() {
   const navigate = useNavigate()
@@ -33,10 +35,31 @@ function ForgotPassword() {
     try {
       const response = await forgotPassword(email)
       setMessage(response.message)
+
+      // Show success toast
+      toast.success(response.message || "Reset link sent successfully!", {
+        icon: "💌",
+        style: {
+          borderRadius: "10px",
+          background: "#fff",
+          color: "#333",
+        },
+      })
+
       // Clear email field after successful submission
       setEmail("")
+
+      // Short delay before navigation to allow toast to be seen
+      setTimeout(() => {
+        navigate("/login")
+      }, 5000)
     } catch (err) {
       setError(err.message)
+
+      // Show error toast
+      toast.error(err.message || "Failed to send reset link", {
+        icon: "💔",
+      })
     } finally {
       setIsSubmitting(false)
     }
@@ -44,6 +67,9 @@ function ForgotPassword() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 text-gray-800 bg-pink-100">
+      {/* Toast Container */}
+      <ToastContainer />
+
       {/* Animated Background */}
       <div className="relative inset-0 z-0">
         <AnimatedBackground />
