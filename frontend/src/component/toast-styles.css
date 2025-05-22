@@ -1,0 +1,150 @@
+/* Custom Toast Styles for Amour Dating App */
+
+.amour-toast {
+    border-radius: 12px !important;
+    padding: 12px !important;
+    box-shadow: 0 8px 16px rgba(236, 72, 153, 0.1) !important;
+    border: 1px solid rgba(236, 72, 153, 0.1) !important;
+    background: white !important;
+    backdrop-filter: blur(10px) !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+  
+  .amour-toast::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #ec4899, #a855f7);
+    border-radius: 4px 0 0 4px;
+  }
+  
+  .amour-toast-body {
+    font-family: 'Inter', sans-serif;
+    padding: 0 8px !important;
+    color: #4b5563 !important;
+    font-size: 14px !important;
+  }
+  
+  .amour-toast-progress {
+    background: linear-gradient(to right, #ec4899, #a855f7) !important;
+    height: 3px !important;
+  }
+  
+  .amour-toast-close-button {
+    color: #9ca3af;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    padding: 0;
+    margin-left: 8px;
+  }
+  
+  .amour-toast-close-button:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  
+  /* Success Toast */
+  .Toastify__toast--success .amour-toast-body {
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z' stroke='%23EC4899' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M7.5 10L9.16667 11.6667L12.5 8.33334' stroke='%23EC4899' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 0% 50%;
+    padding-left: 28px !important;
+  }
+  
+  /* Error Toast */
+  .Toastify__toast--error .amour-toast-body {
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z' stroke='%23EF4444' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M12.5 7.5L7.5 12.5' stroke='%23EF4444' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M7.5 7.5L12.5 12.5' stroke='%23EF4444' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 0% 50%;
+    padding-left: 28px !important;
+  }
+  
+  /* Info Toast */
+  .Toastify__toast--info .amour-toast-body {
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z' stroke='%230EA5E9' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 6.66666V10' stroke='%230EA5E9' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 13.3333H10.0083' stroke='%230EA5E9' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 0% 50%;
+    padding-left: 28px !important;
+  }
+  
+  /* Warning Toast */
+  .Toastify__toast--warning .amour-toast-body {
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z' stroke='%23F59E0B' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 6.66666V10' stroke='%23F59E0B' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 13.3333H10.0083' stroke='%23F59E0B' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 0% 50%;
+    padding-left: 28px !important;
+  }
+  
+  /* Floating hearts animation for success toasts */
+  @keyframes floatingHearts {
+    0% {
+      transform: translateY(0) scale(0);
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(-60px) scale(1);
+      opacity: 0;
+    }
+  }
+  
+  .Toastify__toast--success::after {
+    content: "❤️";
+    position: absolute;
+    bottom: 10px;
+    right: 30%;
+    font-size: 12px;
+    animation: floatingHearts 2s ease-in-out infinite;
+    animation-delay: 0.5s;
+  }
+  
+  .Toastify__toast--success::before {
+    content: "💕";
+    position: absolute;
+    bottom: 10px;
+    right: 60%;
+    font-size: 14px;
+    animation: floatingHearts 2.5s ease-in-out infinite;
+  }
+  
+  /* Add a subtle heart pattern to the background of all toasts */
+  .amour-toast {
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 30.5c-0.4 0-0.8-0.1-1.1-0.4l-14.6-13.8c-2.5-2.3-2.5-6.1 0-8.5 1.2-1.1 2.8-1.8 4.5-1.8s3.3 0.6 4.5 1.8l6.7 6.4 6.7-6.4c2.5-2.3 6.5-2.3 8.9 0 2.5 2.3 2.5 6.1 0 8.5l-14.6 13.8c-0.3 0.3-0.7 0.4-1.1 0.4z' fill='%23FDF2F8' fill-opacity='0.4'/%3E%3C/svg%3E") !important;
+    background-repeat: repeat !important;
+    background-position: center !important;
+  }
+  
+  /* Add a pulsing effect to the toast on hover */
+  .amour-toast:hover {
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 10px 20px rgba(236, 72, 153, 0.15) !important;
+  }
+  
+  /* Custom animations for different toast types */
+  .Toastify__toast--success {
+    animation: successPulse 1s ease-in-out;
+  }
+  
+  @keyframes successPulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(236, 72, 153, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
+    }
+  }
+  

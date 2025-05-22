@@ -5,6 +5,8 @@ import { useParams, useNavigate, Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import AnimatedBackground from "./AnimatedBackground"
 import { verifyResetToken, resetPassword } from "../services/api"
+import { toast } from "react-toastify"
+import ToastContainer from "./ToastContainer"
 
 function ResetPassword() {
   const { token } = useParams()
@@ -26,6 +28,16 @@ function ResetPassword() {
       } catch (err) {
         setError(err.message)
         setIsTokenValid(false)
+
+        // Show error toast for invalid token
+        toast.error(err.message || "Invalid or expired reset link", {
+          icon: "💔",
+          style: {
+            borderRadius: "10px",
+            background: "#fff",
+            color: "#333",
+          },
+        })
       } finally {
         setIsLoading(false)
       }
@@ -55,12 +67,27 @@ function ResetPassword() {
       const response = await resetPassword(token, { password, confirmPassword })
       setMessage(response.message)
 
+      // Show success toast
+      toast.success(response.message || "Password reset successful!", {
+        icon: "💖",
+        style: {
+          borderRadius: "10px",
+          background: "#fff",
+          color: "#333",
+        },
+      })
+
       // Redirect to login after 3 seconds
       setTimeout(() => {
         navigate("/login")
       }, 3000)
     } catch (err) {
       setError(err.message)
+
+      // Show error toast
+      toast.error(err.message || "Failed to reset password", {
+        icon: "💔",
+      })
     } finally {
       setIsSubmitting(false)
     }
@@ -91,6 +118,9 @@ function ResetPassword() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 text-gray-800 bg-pink-100">
+      {/* Toast Container */}
+      <ToastContainer />
+
       {/* Animated Background */}
       <div className="relative inset-0 z-0">
         <AnimatedBackground />
