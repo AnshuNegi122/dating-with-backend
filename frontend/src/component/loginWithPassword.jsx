@@ -9,6 +9,10 @@ import { loginUser } from "../services/api"
 import { toast } from "react-toastify"
 import ToastContainer from "./ToastContainer"
 
+import boyImage from '../assets/images/boy.png'; // adjust path as needed
+import girlImage from '../assets/images/girl.png'; // adjust path as needed
+import girlImage1 from '../assets/images/girl 1.png'; // adjust path as needed
+
 const LoginWithPasswordScreen = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -78,23 +82,39 @@ const LoginWithPasswordScreen = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 text-gray-800 bg-pink-100">
+    <div className="min-h-screen flex items-center justify-center p-6 text-gray-800 bg-pink-100 relative overflow-hidden">
       {/* Toast Container */}
       <ToastContainer />
 
-      {/* Animated Background */}
-      <div className="relative inset-0 z-0">
+      {/* Character Illustrations */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Boy illustration on the left */}
+        <img
+          src={boyImage}
+          alt="boy"
+          className="absolute left-0 bottom-0 h-[70vh] max-h-[600px] object-contain opacity-60 transform -translate-x-1/4"
+        />
+
+        {/* Girl illustration on the right */}
+        <img
+          src={girlImage1}
+          alt=""
+          className="absolute right-0 bottom-0 h-[70vh] max-h-[600px] object-contain opacity-60 transform translate-x-1/4"
+        />
+
+        {/* Animated Background */}
         <AnimatedBackground />
-        <div className="relative inset-0 bg-white/80"></div>
+        <div className=" inset-0 bg-white/70"></div>
       </div>
+
       <motion.div
-        className="w-full max-w-6xl flex flex-col md:flex-row rounded-2xl shadow-elegant overflow-hidden"
+        className="w-full max-w-6xl flex flex-col md:flex-row rounded-2xl shadow-elegant overflow-hidden relative z-10"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
         {/* Left Side */}
-        <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white w-full md:w-5/12  p-8 md:p-12 flex flex-col justify-between">
+        <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white w-full md:w-5/12 p-8 md:p-12 flex flex-col justify-between">
           <div>
             <div className="flex items-center mb-8 cursor-pointer" onClick={() => navigate("/")}>
               <svg className="w-8 h-8 text-brand-300" viewBox="0 0 24 24" fill="currentColor">

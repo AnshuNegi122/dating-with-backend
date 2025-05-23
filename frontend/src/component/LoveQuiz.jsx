@@ -566,11 +566,11 @@ const LoveQuiz = () => {
   const activeQuestions = customQuestions.length > 0 ? customQuestions : randomQuestions
 
   return (
-    <section className="pt-32 pb-20 px-6 md:px-12 overflow-hidden min-h-screen">
+    <section className="pt-10 px-6 md:px-12 overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 z-0">
         <AnimatedBackground />
-        <div className="absolute inset-0 bg-white/80"></div>
+        <div className=" inset-0 bg-white/80"></div>
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
