@@ -29,7 +29,7 @@ const LoginWithOtpScreen = () => {
     if (!isValidEmail(email)) return alert("Please enter a valid email")
     setIsLoading(true)
     try {
-      const res = await fetch("http://localhost:5000/api/request-otp", {
+      const res = await fetch("https://dating-with-backend.onrender.com/api/request-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -55,7 +55,7 @@ const LoginWithOtpScreen = () => {
     if (otpCode.length !== 4) return alert("Please enter complete 4-digit OTP")
     setIsLoading(true)
     try {
-      const res = await fetch("http://localhost:5000/api/verify-otp", {
+      const res = await fetch("https://dating-with-backend.onrender.com/api/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp: otpCode }),

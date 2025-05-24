@@ -1,7 +1,7 @@
 // This file should be placed in your React frontend project
 
 // Base API URL
-const API_URL = "http://localhost:5000/api"
+const API_URL = "https://dating-with-backend.onrender.com/api"
 
 // Register a new user
 export const registerUser = async (userData) => {
