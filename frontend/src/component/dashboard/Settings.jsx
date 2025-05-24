@@ -1,7 +1,5 @@
-"use client"
-
 import { useState } from "react"
-import { Check, X, Download, Shield, CreditCard } from "lucide-react"
+import { Check, X, Download, Shield, CreditCard, Crown, Sparkles, Zap, Star } from 'lucide-react'
 
 const Settings = ({ toggleDarkMode, darkMode }) => {
   const [activeTab, setActiveTab] = useState("Account")
@@ -14,224 +12,135 @@ const Settings = ({ toggleDarkMode, darkMode }) => {
     pushNotifications: true,
   })
 
-  const tabs = ["Account", "Privacy", "Notifications", "Appearance", "Subscription"]
+  const tabs = ["Account", "Privacy", "Notifications"]
 
   const toggleSetting = (key) => {
     setSettings((prev) => ({ ...prev, [key]: !prev[key] }))
   }
 
-  const SubscriptionComponent = () => (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-xl font-semibold text-gray-800 mb-2">Subscription Plan</h2>
-        <p className="text-gray-600">Manage your subscription and billing information</p>
-      </div>
 
-      {/* Free Plan */}
-      <div className="bg-white border border-gray-200 rounded-lg p-6 relative">
-        <div className="absolute top-4 right-4">
-          <span className="bg-pink-500 text-white text-xs font-medium px-2 py-1 rounded">Current Plan</span>
-        </div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">Free Plan</h3>
-        <p className="text-gray-600 mb-4">Basic features with limited access</p>
-        <ul className="space-y-2 mb-6">
-          <li className="flex items-center text-sm">
-            <Check className="w-4 h-4 text-green-500 mr-2" />
-            <span className="text-gray-700">10 matches per day</span>
-          </li>
-          <li className="flex items-center text-sm">
-            <Check className="w-4 h-4 text-green-500 mr-2" />
-            <span className="text-gray-700">Basic messaging</span>
-          </li>
-          <li className="flex items-center text-sm">
-            <Check className="w-4 h-4 text-green-500 mr-2" />
-            <span className="text-gray-700">5 video chats per week</span>
-          </li>
-          <li className="flex items-center text-sm">
-            <X className="w-4 h-4 text-red-500 mr-2" />
-            <span className="text-gray-500">See who likes you</span>
-          </li>
-          <li className="flex items-center text-sm">
-            <X className="w-4 h-4 text-red-500 mr-2" />
-            <span className="text-gray-500">Priority matching</span>
-          </li>
-        </ul>
-      </div>
-
-      {/* Premium Plan */}
-      <div className="bg-gradient-to-br from-pink-50 to-rose-50 border border-pink-200 rounded-lg p-6 relative">
-        <div className="absolute top-4 right-4">
-          <span className="bg-gradient-to-r from-pink-500 to-rose-500 text-white text-xs font-medium px-2 py-1 rounded">
-            Recommended
-          </span>
-        </div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">Premium Plan</h3>
-        <p className="text-gray-600 mb-4">Unlock all features and benefits</p>
-        <ul className="space-y-2 mb-6">
-          <li className="flex items-center text-sm">
-            <Check className="w-4 h-4 text-green-500 mr-2" />
-            <span className="text-gray-700">Unlimited matches</span>
-          </li>
-          <li className="flex items-center text-sm">
-            <Check className="w-4 h-4 text-green-500 mr-2" />
-            <span className="text-gray-700">Unlimited messaging</span>
-          </li>
-          <li className="flex items-center text-sm">
-            <Check className="w-4 h-4 text-green-500 mr-2" />
-            <span className="text-gray-700">Unlimited video chats</span>
-          </li>
-          <li className="flex items-center text-sm">
-            <Check className="w-4 h-4 text-green-500 mr-2" />
-            <span className="text-gray-700">See who likes you</span>
-          </li>
-          <li className="flex items-center text-sm">
-            <Check className="w-4 h-4 text-green-500 mr-2" />
-            <span className="text-gray-700">Priority matching</span>
-          </li>
-        </ul>
-        <div className="flex items-center justify-between">
-          <div>
-            <span className="text-2xl font-bold text-gray-800">$14.99</span>
-            <span className="text-gray-600"> / month</span>
-          </div>
-          <button className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-6 py-2 rounded-lg font-medium transition-colors">
-            Upgrade Now
-          </button>
-        </div>
-      </div>
-
-      {/* Payment Method */}
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">Payment Method</h3>
-        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-          <div className="flex items-center">
-            <CreditCard className="w-6 h-6 text-gray-500 mr-3" />
-            <div>
-              <p className="text-gray-800 font-medium">•••• •••• •••• 4242</p>
-              <p className="text-gray-500 text-sm">Expires 12/25</p>
-            </div>
-          </div>
-          <button className="text-pink-500 hover:text-pink-600 text-sm font-medium">Update</button>
-        </div>
-      </div>
-    </div>
-  )
 
   const renderTabContent = () => {
     switch (activeTab) {
       case "Account":
         return (
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">Account Settings</h2>
-              <p className="text-gray-600">Manage your account information and preferences</p>
+          <div className="space-y-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-800 mb-3">Account Settings</h2>
+              <p className="text-lg text-gray-600">Manage your personal information and preferences</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-                <input
-                  type="text"
-                  defaultValue="Jane Doe"
-                  className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:border-pink-500"
-                />
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+              <h3 className="text-xl font-bold text-gray-800 mb-6">Personal Information</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="block text-sm font-bold text-gray-700 uppercase tracking-wide">Full Name</label>
+                  <input
+                    type="text"
+                    defaultValue="Jane Doe"
+                    className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="block text-sm font-bold text-gray-700 uppercase tracking-wide">Email Address</label>
+                  <input
+                    type="email"
+                    defaultValue="jane@example.com"
+                    className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="block text-sm font-bold text-gray-700 uppercase tracking-wide">Phone Number</label>
+                  <input
+                    type="tel"
+                    defaultValue="+1 (555) 123-4567"
+                    className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="block text-sm font-bold text-gray-700 uppercase tracking-wide">Location</label>
+                  <input
+                    type="text"
+                    defaultValue="New York, NY"
+                    className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
+                  />
+                </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                <input
-                  type="email"
-                  defaultValue="jane@example.com"
-                  className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:border-pink-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-                <input
-                  type="tel"
-                  defaultValue="+1 (555) 123-4567"
-                  className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:border-pink-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
-                <input
-                  type="text"
-                  defaultValue="New York, NY"
-                  className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:border-pink-500"
-                />
-              </div>
-            </div>
 
-            <button className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-6 py-2 rounded-lg font-medium transition-colors">
-              Save Changes
-            </button>
+              <button className="mt-8 bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:via-rose-600 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                Save Changes
+              </button>
+            </div>
           </div>
         )
 
       case "Privacy":
         return (
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">Privacy Settings</h2>
-              <p className="text-gray-600">Control who can see your profile and information</p>
+          <div className="space-y-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-800 mb-3">Privacy Settings</h2>
+              <p className="text-lg text-gray-600">Control who can see your profile and information</p>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">Profile Visibility</h3>
+            <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg">
+              <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center">
+                <Shield className="h-6 w-6 mr-3 text-pink-500" />
+                Profile Visibility
+              </h3>
 
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
+              <div className="space-y-6">
+                <div className="flex items-center justify-between p-6 bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl border border-gray-200">
                   <div>
-                    <h4 className="text-gray-800 font-medium">Public profile</h4>
-                    <p className="text-gray-600 text-sm">Allow anyone to view your profile</p>
+                    <h4 className="text-gray-800 font-bold text-lg">Public profile</h4>
+                    <p className="text-gray-600 mt-1">Allow anyone to view your profile</p>
                   </div>
                   <button
                     onClick={() => toggleSetting("publicProfile")}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      settings.publicProfile ? "bg-pink-500" : "bg-gray-300"
+                    className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 ${
+                      settings.publicProfile ? "bg-gradient-to-r from-pink-500 to-purple-500" : "bg-gray-300"
                     }`}
                   >
                     <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        settings.publicProfile ? "translate-x-6" : "translate-x-1"
+                      className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform duration-300 shadow-lg ${
+                        settings.publicProfile ? "translate-x-7" : "translate-x-1"
                       }`}
                     />
                   </button>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between p-6 bg-gradient-to-r from-gray-50 to-green-50 rounded-2xl border border-gray-200">
                   <div>
-                    <h4 className="text-gray-800 font-medium">Online status</h4>
-                    <p className="text-gray-600 text-sm">Show when you're online</p>
+                    <h4 className="text-gray-800 font-bold text-lg">Online status</h4>
+                    <p className="text-gray-600 mt-1">Show when you're online</p>
                   </div>
                   <button
                     onClick={() => toggleSetting("onlineStatus")}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      settings.onlineStatus ? "bg-pink-500" : "bg-gray-300"
+                    className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 ${
+                      settings.onlineStatus ? "bg-gradient-to-r from-pink-500 to-purple-500" : "bg-gray-300"
                     }`}
                   >
                     <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        settings.onlineStatus ? "translate-x-6" : "translate-x-1"
+                      className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform duration-300 shadow-lg ${
+                        settings.onlineStatus ? "translate-x-7" : "translate-x-1"
                       }`}
                     />
                   </button>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between p-6 bg-gradient-to-r from-gray-50 to-purple-50 rounded-2xl border border-gray-200">
                   <div>
-                    <h4 className="text-gray-800 font-medium">Read receipts</h4>
-                    <p className="text-gray-600 text-sm">Let others know when you've read their messages</p>
+                    <h4 className="text-gray-800 font-bold text-lg">Read receipts</h4>
+                    <p className="text-gray-600 mt-1">Let others know when you've read their messages</p>
                   </div>
                   <button
                     onClick={() => toggleSetting("readReceipts")}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      settings.readReceipts ? "bg-pink-500" : "bg-gray-300"
+                    className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 ${
+                      settings.readReceipts ? "bg-gradient-to-r from-pink-500 to-purple-500" : "bg-gray-300"
                     }`}
                   >
                     <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        settings.readReceipts ? "translate-x-6" : "translate-x-1"
+                      className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform duration-300 shadow-lg ${
+                        settings.readReceipts ? "translate-x-7" : "translate-x-1"
                       }`}
                     />
                   </button>
@@ -239,29 +148,40 @@ const Settings = ({ toggleDarkMode, darkMode }) => {
               </div>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">Blocked Users</h3>
-              <p className="text-gray-600 mb-4">You haven't blocked any users yet</p>
-              <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors">
-                Manage Blocked Users
-              </button>
-            </div>
-
-            <div className="bg-white border border-gray-200 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">Data & Privacy</h3>
-              <div className="space-y-3">
-                <button className="flex items-center w-full p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
-                  <Download className="w-5 h-5 text-gray-500 mr-3" />
-                  <span className="text-gray-800">Download Your Data</span>
-                </button>
-                <button className="flex items-center w-full p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
-                  <Shield className="w-5 h-5 text-gray-500 mr-3" />
-                  <span className="text-gray-800">Privacy Policy</span>
+            <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg">
+              <h3 className="text-xl font-bold text-gray-800 mb-6">Blocked Users</h3>
+              <div className="text-center py-12">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Shield className="h-8 w-8 text-gray-400" />
+                </div>
+                <p className="text-gray-600 mb-6 text-lg">You haven't blocked any users yet</p>
+                <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded-2xl transition-all duration-200 font-semibold">
+                  Manage Blocked Users
                 </button>
               </div>
             </div>
 
-            <button className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+            <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg">
+              <h3 className="text-xl font-bold text-gray-800 mb-6">Data & Privacy</h3>
+              <div className="space-y-4">
+                <button className="flex items-center w-full p-6 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 rounded-2xl transition-all duration-200 border border-blue-200">
+                  <Download className="w-6 h-6 text-blue-500 mr-4" />
+                  <div className="text-left">
+                    <span className="text-gray-800 font-semibold text-lg block">Download Your Data</span>
+                    <span className="text-gray-600 text-sm">Get a copy of all your data</span>
+                  </div>
+                </button>
+                <button className="flex items-center w-full p-6 bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 rounded-2xl transition-all duration-200 border border-green-200">
+                  <Shield className="w-6 h-6 text-green-500 mr-4" />
+                  <div className="text-left">
+                    <span className="text-gray-800 font-semibold text-lg block">Privacy Policy</span>
+                    <span className="text-gray-600 text-sm">Learn how we protect your data</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <button className="bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:via-rose-600 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
               Save Privacy Settings
             </button>
           </div>
@@ -269,47 +189,48 @@ const Settings = ({ toggleDarkMode, darkMode }) => {
 
       case "Notifications":
         return (
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">Notification Settings</h2>
-              <p className="text-gray-600">Choose what notifications you want to receive</p>
+          <div className="space-y-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-800 mb-3">Notification Settings</h2>
+              <p className="text-lg text-gray-600">Choose what notifications you want to receive</p>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-lg p-6">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
+            <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg">
+              <h3 className="text-xl font-bold text-gray-800 mb-6">Notification Preferences</h3>
+              <div className="space-y-6">
+                <div className="flex items-center justify-between p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-200">
                   <div>
-                    <h4 className="text-gray-800 font-medium">Push notifications</h4>
-                    <p className="text-gray-600 text-sm">Receive notifications on your device</p>
+                    <h4 className="text-gray-800 font-bold text-lg">Push notifications</h4>
+                    <p className="text-gray-600 mt-1">Receive notifications on your device</p>
                   </div>
                   <button
                     onClick={() => toggleSetting("pushNotifications")}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      settings.pushNotifications ? "bg-pink-500" : "bg-gray-300"
+                    className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 ${
+                      settings.pushNotifications ? "bg-gradient-to-r from-pink-500 to-purple-500" : "bg-gray-300"
                     }`}
                   >
                     <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        settings.pushNotifications ? "translate-x-6" : "translate-x-1"
+                      className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform duration-300 shadow-lg ${
+                        settings.pushNotifications ? "translate-x-7" : "translate-x-1"
                       }`}
                     />
                   </button>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-200">
                   <div>
-                    <h4 className="text-gray-800 font-medium">Email notifications</h4>
-                    <p className="text-gray-600 text-sm">Receive notifications via email</p>
+                    <h4 className="text-gray-800 font-bold text-lg">Email notifications</h4>
+                    <p className="text-gray-600 mt-1">Receive notifications via email</p>
                   </div>
                   <button
                     onClick={() => toggleSetting("emailNotifications")}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      settings.emailNotifications ? "bg-pink-500" : "bg-gray-300"
+                    className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 ${
+                      settings.emailNotifications ? "bg-gradient-to-r from-pink-500 to-purple-500" : "bg-gray-300"
                     }`}
                   >
                     <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        settings.emailNotifications ? "translate-x-6" : "translate-x-1"
+                      className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform duration-300 shadow-lg ${
+                        settings.emailNotifications ? "translate-x-7" : "translate-x-1"
                       }`}
                     />
                   </button>
@@ -319,56 +240,31 @@ const Settings = ({ toggleDarkMode, darkMode }) => {
           </div>
         )
 
-      case "Appearance":
-        return (
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">Appearance Settings</h2>
-              <p className="text-gray-600">Customize how the app looks and feels</p>
-            </div>
-
-            <div className="bg-white border border-gray-200 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">Theme</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <button className="p-4 bg-gray-50 border-2 border-pink-500 rounded-lg">
-                  <div className="w-full h-20 bg-white rounded mb-2 border border-gray-200"></div>
-                  <p className="text-gray-800 text-sm font-medium">Light Theme</p>
-                </button>
-                <button className="p-4 bg-gray-50 border-2 border-gray-300 rounded-lg opacity-50">
-                  <div className="w-full h-20 bg-gray-800 rounded mb-2"></div>
-                  <p className="text-gray-800 text-sm font-medium">Dark Theme (Coming Soon)</p>
-                </button>
-              </div>
-            </div>
-          </div>
-        )
-
-      case "Subscription":
-        return <SubscriptionComponent />
-
+      
+      
       default:
         return null
     }
   }
 
   return (
-    <div className="h-full bg-gray-50 flex flex-col">
-      <div className="flex-1 p-4 md:p-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-pink-50 to-purple-50">
+      <div className="max-w-6xl mx-auto p-4 md:p-6">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-800 mb-2">Settings</h1>
-          <p className="text-gray-600">Manage your account settings and preferences</p>
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">Settings</h1>
+          <p className="text-xl text-gray-600">Manage your account settings and preferences</p>
         </div>
 
         {/* Tabs */}
-        <div className="flex flex-wrap space-x-1 bg-white rounded-lg p-1 mb-8 border border-gray-200 overflow-x-auto">
+        <div className="flex flex-wrap justify-center bg-white rounded-2xl p-2 mb-12 border border-gray-200 shadow-lg overflow-x-auto">
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`flex-shrink-0 py-3 px-4 rounded-md text-sm font-medium transition-colors ${
+              className={`flex-shrink-0 py-4 px-6 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 ${
                 activeTab === tab
-                  ? "bg-pink-500 text-white shadow-sm"
+                  ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg"
                   : "text-gray-600 hover:text-gray-800 hover:bg-gray-50"
               }`}
             >
@@ -378,7 +274,7 @@ const Settings = ({ toggleDarkMode, darkMode }) => {
         </div>
 
         {/* Tab Content */}
-        <div className="max-w-4xl">{renderTabContent()}</div>
+        <div className="max-w-4xl mx-auto">{renderTabContent()}</div>
       </div>
     </div>
   )
